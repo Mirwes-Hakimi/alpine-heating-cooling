@@ -1,0 +1,1091 @@
+/* ======================================================
+   HOME PAGE — animated, production-quality styles
+   ====================================================== */
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  background: linear-gradient(135deg, #060f1f 0%, #0f2341 35%, #0d2d52 65%, #102a4a 100%);
+  background-size: 300% 300%;
+  animation: gradient-shift 12s ease infinite;
+  overflow: hidden;
+  padding-top: calc(var(--nav-height) + var(--space-16));
+  padding-bottom: 0;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ─── Mesh grid overlay ─── */
+.heroMesh {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* ─── Aurora overlay ─── */
+/* Sits above the gradient background, adds multi-color haze that shifts */
+.heroAurora {
+  position: absolute; /* taken out of flow, covers entire hero */
+  inset: 0; /* shorthand for top/right/bottom/left: 0 */
+  /* Three radial gradients layered: blue top-center, orange right, light-blue bottom-left */
+  background:
+    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(33, 150, 243, 0.22), transparent),
+    radial-gradient(ellipse 55% 70% at 90% 40%,  rgba(232, 93, 38, 0.14),  transparent),
+    radial-gradient(ellipse 60% 50% at 10% 90%,  rgba(96, 165, 250, 0.12), transparent);
+  animation: aurora-shift 9s ease-in-out infinite; /* slow pulsing breath effect */
+  pointer-events: none; /* clicks pass through to elements beneath */
+  z-index: 0; /* sits above background gradient, below content */
+}
+
+/* Keyframes: the aurora breathes by fading slightly and scaling up */
+@keyframes aurora-shift {
+  0%, 100% { opacity: 1;   transform: scale(1);    }
+  50%       { opacity: 0.6; transform: scale(1.06); }
+}
+
+/* ─── Ambient orbs ─── */
+/* Large blurry blobs of color that drift around the background */
+.heroOrb1 {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%; /* makes the square div a circle */
+  background: radial-gradient(circle, rgba(232, 93, 38, 0.18) 0%, transparent 70%); /* warm orange, fades to transparent */
+  top: -150px; /* partially off-screen at top */
+  right: -100px; /* partially off-screen at right */
+  pointer-events: none;
+  animation: float-slow 14s ease-in-out infinite; /* gentle up-down drift */
+}
+
+.heroOrb2 {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(33, 150, 243, 0.14) 0%, transparent 70%); /* cool blue */
+  bottom: 40px;
+  left: -80px;
+  pointer-events: none;
+  animation: float-slow 18s ease-in-out infinite reverse; /* reverse = starts at end of keyframe */
+}
+
+.heroOrb3 {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* center trick: offsets own size so center of div = center of parent */
+  pointer-events: none;
+  animation: float 20s ease-in-out infinite;
+}
+
+/* ─── Floating particles ─── */
+/* Container for all the floating dots in the background */
+.particles {
+  position: absolute; /* anchored to the hero section */
+  inset: 0;           /* stretches to cover the full hero area */
+  pointer-events: none; /* mouse events ignored — purely decorative */
+  overflow: hidden;   /* clips particles that drift off-screen */
+}
+
+/* Each individual particle dot */
+.particle {
+  position: absolute;  /* positioned by inline style (top/left) from JSX */
+  border-radius: 50%;  /* circle shape */
+  background: rgba(255, 255, 255, 0.25); /* default: semi-transparent white */
+  animation: particle-float 8s ease-in-out infinite; /* duration overridden per particle via inline style */
+}
+
+/* Warm-colored particles (orange glow) */
+.particleWarm {
+  background: rgba(232, 93, 38, 0.4); /* brand orange */
+  box-shadow: 0 0 8px rgba(232, 93, 38, 0.5); /* soft glow matches color */
+}
+
+/* Cool-colored particles (blue glow) */
+.particleCool {
+  background: rgba(96, 165, 250, 0.5); /* light blue */
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
+}
+
+/* ─── Floating live badge ─── */
+/* "● Available 24/7" pill that appears in the top-right of the hero */
+.heroLiveBadge {
+  position: absolute;    /* positioned relative to the hero section */
+  /* offset by nav height so the badge appears just below the navbar, not behind it */
+  top: calc(var(--nav-height) + 16px);
+  right: 24px;           /* distance from right edge */
+  z-index: 3;            /* above orbs and aurora layers */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.35rem 0.85rem;
+  background: rgba(16, 185, 129, 0.15);  /* translucent green tint */
+  border: 1px solid rgba(16, 185, 129, 0.35); /* subtle green border */
+  border-radius: var(--radius-full);     /* pill shape */
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-success);           /* bright green text */
+  backdrop-filter: blur(10px);          /* frosted-glass effect on the background behind it */
+  animation: fadeInUp 0.6s ease 0.8s both; /* slides up after 0.8s delay */
+  pointer-events: none;
+}
+
+/* Pulsing green dot inside the live badge */
+.heroBadgeDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-success); /* solid green fill */
+  flex-shrink: 0;                   /* don't let flexbox squish it */
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.9); /* neon glow */
+  animation: pulse-ring 2s ease-out infinite;  /* pulse-ring defined in index.css */
+}
+
+/* ─── Mobile-only stat bubbles ─── */
+/* These stats are hidden on desktop (desktop shows them in heroVisual) */
+.heroMobileStats {
+  display: none; /* hidden by default — only shown via the media query below */
+  width: 100%;
+  margin-top: var(--space-5);
+  animation: fadeInUp 0.7s ease 0.5s both; /* animates in after the CTAs */
+}
+
+/* Override the 4-column grid to 2 columns when stats are shown on mobile */
+.heroMobileStats .heroStats {
+  grid-template-columns: repeat(2, 1fr); /* 2×2 grid fits mobile width */
+}
+
+/* ─── Scroll-down indicator ─── */
+/* Mouse icon with a bouncing dot inside — tells users to scroll */
+.scrollIndicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--space-6);
+  animation: fadeInUp 1s ease 1.2s both; /* appears last, after all other content */
+}
+
+/* "SCROLL" label above the mouse icon */
+.scrollIndicator span {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.12em; /* wider letter-spacing = more refined look */
+}
+
+/* The mouse-shaped border */
+.scrollDot {
+  width: 28px;
+  height: 44px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px; /* half of width = pill / mouse shape */
+  display: flex;
+  justify-content: center;
+  padding-top: 7px; /* pushes the inner dot to the top of the mouse */
+}
+
+/* The tiny dot that bounces inside the mouse shape */
+.scrollDot::before {
+  content: '';               /* pseudo-element with no text content */
+  width: 4px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 2px;
+  animation: scroll-bounce 2s ease-in-out infinite; /* defined below */
+}
+
+/* Keyframe: dot falls to the bottom of the mouse, then resets */
+@keyframes scroll-bounce {
+  0%   { transform: translateY(0);    opacity: 1;   }
+  60%  { transform: translateY(12px); opacity: 0.3; }
+  100% { transform: translateY(0);    opacity: 1;   }
+}
+
+/* ─── Floating decorative icons ─── */
+.floatingSnowflake {
+  position: absolute;
+  top: 12%;
+  right: 8%;
+  color: rgba(96, 165, 250, 0.12);
+  font-size: 0;
+  animation: float-slow 12s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.floatingSnowflake svg {
+  width: 80px;
+  height: 80px;
+}
+
+.floatingFlame {
+  position: absolute;
+  bottom: 15%;
+  left: 6%;
+  color: rgba(232, 93, 38, 0.1);
+  animation: float-slow 10s ease-in-out infinite reverse;
+  pointer-events: none;
+}
+
+.floatingFlame svg {
+  width: 60px;
+  height: 60px;
+}
+
+/* ─── Inner layout ─── */
+.heroInner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  padding-bottom: var(--space-20);
+}
+
+/* ─── Content ─── */
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+.heroBadge {
+  display: flex;
+}
+
+.heroTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  font-weight: 800;
+  color: var(--color-white);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.heroGradient {
+  background: linear-gradient(90deg, #60a5fa, #f97316, #fbbf24);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 4s ease infinite;
+}
+
+.heroSubText {
+  color: rgba(255, 255, 255, 0.85);
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.85);
+}
+
+.heroDesc {
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.7;
+  max-width: 500px;
+}
+
+.heroDesc strong {
+  color: var(--color-white);
+  font-weight: 700;
+}
+
+.heroCtas {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  animation: fadeInUp 0.7s ease 0.3s both;
+}
+
+/* The "Book Service" button gets an extra persistent glow shadow */
+.ctaBook {
+  box-shadow: 0 8px 30px rgba(232, 93, 38, 0.4);
+  animation: fadeInUp 0.7s ease 0.3s both, cta-glow 3s ease-in-out 1.5s infinite; /* cta-glow starts after initial fade-in */
+}
+
+/* Keyframe: the orange glow on the CTA button breathes in and out */
+@keyframes cta-glow {
+  0%, 100% { box-shadow: 0 8px 30px rgba(232, 93, 38, 0.4);  }
+  50%       { box-shadow: 0 8px 50px rgba(232, 93, 38, 0.75); }
+}
+
+.heroTrust {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  animation: fadeInUp 0.7s ease 0.45s both;
+}
+
+.trustPill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.trustPillIcon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-success);
+  flex-shrink: 0;
+}
+
+/* ─── Visual ─── */
+.heroVisual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+  animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+.logoGlowRing {
+  position: relative;
+  border-radius: var(--radius-2xl);
+  padding: 3px;
+  background: linear-gradient(135deg, rgba(232, 93, 38, 0.7), rgba(33, 150, 243, 0.7), rgba(232, 93, 38, 0.7));
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite, glow-pulse 3s ease-in-out infinite;
+}
+
+.logoCard {
+  border-radius: calc(var(--radius-2xl) - 3px);
+  overflow: hidden;
+  background: var(--color-primary-dark);
+}
+
+.heroLogo {
+  width: 380px;
+  height: 215px;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  animation: float 7s ease-in-out infinite;
+}
+
+/* ─── Stat bubbles ─── */
+.heroStats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.statBubble {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4) var(--space-2);
+  text-align: center;
+  backdrop-filter: blur(10px);
+  transition: all var(--transition-base);
+  animation: popIn 0.6s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+
+.statBubble:nth-child(1) { animation-delay: 0.5s; }
+.statBubble:nth-child(2) { animation-delay: 0.65s; }
+.statBubble:nth-child(3) { animation-delay: 0.8s; }
+.statBubble:nth-child(4) { animation-delay: 0.95s; }
+
+.statBubble:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-4px) scale(1.03);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.statBubble strong {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--color-white);
+  line-height: 1;
+}
+
+.statBubble span {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+/* ─── Diagonal divider ─── */
+.heroDivider {
+  line-height: 0;
+  height: 90px;
+  position: relative;
+  z-index: 1;
+}
+
+.heroDivider svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== SECTION HEAD ===== */
+.sectionHead {
+  margin-bottom: var(--space-12);
+}
+
+/* ===== SERVICES ===== */
+.servicesSection {
+  background: var(--color-white);
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-5);
+}
+
+.serviceCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-7);
+  border-radius: var(--radius-2xl);
+  background: var(--color-white);
+  border: 1.5px solid var(--color-gray-100);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Gradient border reveal on hover */
+.serviceCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-2xl);
+  padding: 2px;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.accent_cool::before  { background: linear-gradient(135deg, var(--color-cool), var(--color-cool-light)); }
+.accent_warm::before  { background: linear-gradient(135deg, var(--color-warm), var(--color-warm-light)); }
+.accent_primary::before { background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light)); }
+.accent_success::before { background: linear-gradient(135deg, var(--color-success), #34d399); }
+
+.serviceCard:hover::before { opacity: 1; }
+
+.serviceCard:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: transparent;
+}
+
+/* Icon wrap */
+.serviceIconWrap {
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.serviceIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-base);
+}
+
+.serviceCard:hover .serviceIcon {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.accent_cool .serviceIcon  { color: var(--color-cool);    background: rgba(33, 150, 243, 0.1); }
+.accent_warm .serviceIcon  { color: var(--color-warm);    background: rgba(232, 93, 38, 0.1); }
+.accent_primary .serviceIcon { color: var(--color-primary); background: rgba(30, 58, 95, 0.08); }
+.accent_success .serviceIcon { color: var(--color-success); background: rgba(16, 185, 129, 0.1); }
+
+.serviceTitle {
+  font-family: var(--font-heading);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  line-height: 1.2;
+}
+
+.serviceDesc {
+  font-size: 0.9rem;
+  color: var(--color-gray-500);
+  line-height: 1.65;
+  flex: 1;
+}
+
+.serviceLink {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-primary-light);
+  margin-top: auto;
+  transition: gap var(--transition-fast);
+}
+
+.serviceCard:hover .serviceLink { gap: var(--space-2); }
+
+/* ===== TRUST SECTION ===== */
+.trustSection {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #1a4580 100%);
+  padding: var(--space-12) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.trustSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+.trustGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--space-5);
+  position: relative;
+}
+
+.trustBadge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-3);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-base);
+  cursor: default;
+}
+
+.trustBadge:hover {
+  background: rgba(255, 255, 255, 0.13);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.trustIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: rgba(232, 93, 38, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-warm-light);
+  flex-shrink: 0;
+}
+
+.trustLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.trustValue {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+/* ===== WHY US ===== */
+.whySection {
+  background: var(--color-gray-50);
+  position: relative;
+  overflow: hidden;
+}
+
+.whySection::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(33, 150, 243, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.whyLayout {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: var(--space-16);
+  align-items: center;
+}
+
+.whyLeft {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.whyActions {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+}
+
+.whyGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.whyCard {
+  padding: var(--space-6);
+  background: var(--color-white);
+  border-radius: var(--radius-2xl);
+  border: 1.5px solid var(--color-gray-100);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.whyCard::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-warm), var(--color-cool));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-base);
+}
+
+.whyCard:hover::after { transform: scaleX(1); }
+.whyCard:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.whyCardIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  background: rgba(30, 58, 95, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  transition: transform var(--transition-base);
+}
+
+.whyCard:hover .whyCardIcon { transform: scale(1.1) rotate(-5deg); }
+
+.whyCardTitle {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.whyCardDesc {
+  font-size: 0.9rem;
+  color: var(--color-gray-500);
+  line-height: 1.65;
+}
+
+/* ===== TESTIMONIALS ===== */
+.testimonialsSection {
+  background: var(--color-white);
+  position: relative;
+}
+
+.testimonialsSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, var(--color-gray-50) 100%);
+  pointer-events: none;
+}
+
+.testimonialsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  position: relative;
+}
+
+.testimonialCard {
+  padding: var(--space-8);
+  background: var(--color-white);
+  border-radius: var(--radius-2xl);
+  border: 1.5px solid var(--color-gray-100);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonialCard:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-6px);
+  border-color: rgba(33, 150, 243, 0.2);
+}
+
+.quoteIcon {
+  position: absolute;
+  top: -10px;
+  right: var(--space-6);
+  font-family: Georgia, serif;
+  font-size: 8rem;
+  color: var(--color-gray-100);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.testimonialStars {
+  display: flex;
+  gap: 2px;
+  color: var(--color-warning);
+  position: relative;
+  z-index: 1;
+}
+
+.testimonialText {
+  font-size: 0.9875rem;
+  color: var(--color-gray-600);
+  line-height: 1.8;
+  flex: 1;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonialAuthor {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  position: relative;
+  z-index: 1;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-gray-100);
+}
+
+.testimonialAvatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-cool));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-white);
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(30, 58, 95, 0.25);
+}
+
+.testimonialName {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  font-style: normal;
+}
+
+.testimonialLocation {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-gray-400);
+}
+
+/* ===== BLOG ===== */
+.blogSection {
+  background: var(--color-gray-50);
+}
+
+.blogGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  margin-bottom: var(--space-10);
+}
+
+.blogCard {
+  padding: var(--space-7);
+  background: var(--color-white);
+  border-radius: var(--radius-2xl);
+  border: 1.5px solid var(--color-gray-100);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.blogCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  background: linear-gradient(135deg, rgba(33, 150, 243, 0.06), rgba(96, 165, 250, 0.06));
+  transition: height var(--transition-base);
+}
+
+.blogCard:hover::before { height: 100%; }
+.blogCard:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-5px);
+  border-color: rgba(33, 150, 243, 0.15);
+}
+
+.blogMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.blogMeta time {
+  font-size: 0.8rem;
+  color: var(--color-gray-400);
+}
+
+.blogTitle {
+  font-family: var(--font-heading);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  line-height: 1.3;
+  position: relative;
+}
+
+.blogExcerpt {
+  font-size: 0.9rem;
+  color: var(--color-gray-500);
+  line-height: 1.65;
+  flex: 1;
+  position: relative;
+}
+
+.blogReadMore {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-cool);
+  margin-top: auto;
+  position: relative;
+  transition: gap var(--transition-fast);
+}
+
+.blogCard:hover .blogReadMore { gap: var(--space-2); }
+
+.blogFooter {
+  display: flex;
+  justify-content: center;
+}
+
+/* ===== EMERGENCY CTA ===== */
+.emergencySection {
+  background: linear-gradient(135deg, #060f1f 0%, var(--color-primary-dark) 50%, #0a1a32 100%);
+  padding: var(--space-20) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.emergencyBg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+}
+
+.emergencyInner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  position: relative;
+}
+
+.emergencyPulse {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-warm), var(--color-warm-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 0 0 30px rgba(232, 93, 38, 0.4);
+}
+
+.emergencyPulse::before,
+.emergencyPulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(232, 93, 38, 0.5);
+  animation: pulse-ring 2.2s ease-out infinite;
+}
+
+.emergencyPulse::after { animation-delay: 1.1s; }
+
+.emergencyContent { flex: 1; }
+
+.emergencyTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(1.375rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--color-white);
+  margin-bottom: var(--space-3);
+}
+
+.emergencyDesc {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.67);
+  line-height: 1.7;
+  max-width: 560px;
+}
+
+.emergencyCtas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1280px) {
+  .trustGrid { grid-template-columns: repeat(3, 1fr); } /* 6-col → 3-col on large tablets */
+  .servicesGrid { grid-template-columns: repeat(2, 1fr); } /* 4-col → 2-col */
+}
+
+@media (max-width: 1024px) {
+  /* Stack the two hero columns into one centered column */
+  .heroInner {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding-bottom: var(--space-16);
+  }
+  .heroContent { align-items: center; }       /* center children horizontally */
+  .heroDesc { max-width: 600px; margin: 0 auto; }
+  .heroTrust { justify-content: center; }
+  .heroCtas { justify-content: center; }
+  .heroBadge { justify-content: center; }
+  .heroVisual { display: none; }              /* hide the right-column (logo + desktop stats) */
+  .heroMobileStats { display: block; }        /* show the mobile-only stats instead */
+  .heroLiveBadge { top: calc(var(--nav-height) + 10px); right: 12px; } /* tighter placement on tablet */
+  .whyLayout { grid-template-columns: 1fr; }
+  .whyLeft { align-items: center; text-align: center; }
+}
+
+@media (max-width: 768px) {
+  /* Services and blog: single column stacked vertically */
+  .servicesGrid,
+  .blogGrid { grid-template-columns: 1fr; }
+
+  /* Trust badges: horizontal scroll strip instead of a wrapping grid */
+  /* This means all 6 badges appear side-by-side and the user can swipe */
+  .trustGrid {
+    grid-template-columns: unset;         /* remove the grid column definition */
+    display: flex;                        /* switch to flexbox for a row */
+    overflow-x: auto;                    /* allow horizontal scrolling */
+    gap: var(--space-3);
+    padding-bottom: var(--space-3);       /* space for the scroll bar */
+    /* hide the scrollbar visually on webkit (Chrome/Safari/mobile) */
+    -webkit-overflow-scrolling: touch;   /* smooth momentum scroll on iOS */
+    scrollbar-width: none;               /* hide scrollbar in Firefox */
+  }
+  .trustGrid::-webkit-scrollbar { display: none; } /* hide scrollbar in Chrome/Safari */
+  .trustBadge {
+    min-width: 160px;  /* each badge has a minimum width so it doesn't shrink */
+    flex-shrink: 0;    /* prevents flex from squishing the badge */
+  }
+
+  /* Testimonials: horizontal scroll carousel */
+  .testimonialsGrid {
+    grid-template-columns: unset;
+    display: flex;
+    overflow-x: auto;
+    gap: var(--space-4);
+    padding-bottom: var(--space-4);
+    scroll-snap-type: x mandatory;    /* snap to each card when user swipes */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .testimonialsGrid::-webkit-scrollbar { display: none; }
+  .testimonialCard {
+    min-width: 82vw;             /* each card takes ~82% of screen width */
+    flex-shrink: 0;
+    scroll-snap-align: start;    /* snap point is the left edge of each card */
+  }
+
+  .whyGrid { grid-template-columns: 1fr; }
+  .emergencyInner { flex-direction: column; text-align: center; }
+  .emergencyCtas { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+  .emergencyDesc { margin: 0 auto; }
+}
+
+@media (max-width: 480px) {
+  /* Trust grid: already a flex row (from 768px rule), no further changes needed */
+  .heroCtas { flex-direction: column; align-items: stretch; } /* buttons stack vertically */
+  .heroStats { grid-template-columns: repeat(2, 1fr); }       /* stats: 4-col → 2×2 grid */
+  /* Hide scroll indicator on very small screens to avoid clutter */
+  .scrollIndicator { display: none; }
+}

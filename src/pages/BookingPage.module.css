@@ -1,0 +1,376 @@
+/* ===== PAGE HEADER ===== */
+.pageHeader {
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+  padding: var(--space-24) 0 var(--space-16);
+  text-align: center;
+}
+
+.pageTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  color: var(--color-white);
+  line-height: 1.1;
+  margin: var(--space-3) 0 var(--space-5);
+}
+
+.pageSubtitle {
+  font-size: 1.0625rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.pageSubtitle a {
+  color: var(--color-warm-light);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ===== LAYOUT ===== */
+.bookingLayout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.formSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* ===== PROGRESS ===== */
+.progress {
+  background: var(--color-white);
+  border-radius: var(--radius-2xl);
+  border: 1.5px solid var(--color-gray-100);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.progressSteps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  position: relative;
+  z-index: 1;
+}
+
+.progressStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.progressDot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-gray-100);
+  border: 2px solid var(--color-gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-gray-400);
+  transition: all var(--transition-base);
+}
+
+.progressStep.active .progressDot {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.progressStep.done .progressDot {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: var(--color-white);
+}
+
+.progressLabel {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-gray-400);
+  transition: color var(--transition-fast);
+}
+
+.progressStep.active .progressLabel,
+.progressStep.done .progressLabel {
+  color: var(--color-gray-700);
+}
+
+.progressBar {
+  height: 4px;
+  background: var(--color-gray-100);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-cool));
+  border-radius: var(--radius-full);
+  transition: width var(--transition-slow);
+}
+
+/* ===== FORM CARD ===== */
+.formCard {
+  background: var(--color-white);
+  border-radius: var(--radius-2xl);
+  border: 1.5px solid var(--color-gray-100);
+  padding: var(--space-10);
+  box-shadow: var(--shadow-md);
+}
+
+.stepTitle {
+  font-family: var(--font-heading);
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-7);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  font-size: 0.9375rem;
+  color: var(--color-gray-800);
+  background: var(--color-white);
+  transition: all var(--transition-fast);
+  outline: none;
+  appearance: none;
+}
+
+.input:focus {
+  border-color: var(--color-cool);
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.12);
+}
+
+.input.inputError {
+  border-color: var(--color-danger);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* ─── Payment ─── */
+.paymentSection {
+  margin-top: var(--space-2);
+}
+
+.paymentLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-gray-700);
+  margin-bottom: var(--space-3);
+}
+
+.paymentOptions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.payOption {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border: 2px solid var(--color-gray-200);
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.payOption:hover:not(.payOptionDisabled) {
+  border-color: var(--color-primary-light);
+}
+
+.paySelected {
+  border-color: var(--color-primary);
+  background: rgba(30, 58, 95, 0.03);
+}
+
+.payOptionDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.radioHidden {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.payOptionContent strong {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: 2px;
+}
+
+.payOptionContent span {
+  font-size: 0.8375rem;
+  color: var(--color-gray-500);
+}
+
+.comingSoon {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  background: var(--color-gray-100);
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ─── Buttons ─── */
+.nextBtn {
+  width: 100%;
+  padding: 0.9375rem !important;
+  font-size: 1rem !important;
+}
+
+.stepNavBtns {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.stepNavBtns .btn-outline {
+  flex: 0 0 auto;
+}
+
+.stepNavBtns .nextBtn {
+  flex: 1;
+  width: auto;
+}
+
+/* ─── Summary ─── */
+.summary {
+  background: var(--color-gray-50);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  margin-bottom: var(--space-7);
+}
+
+/* ===== SIDEBAR ===== */
+.bookingSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  position: sticky;
+  top: calc(var(--nav-height) + var(--space-6));
+}
+
+.sidebarCard {
+  background: var(--color-white);
+  border-radius: var(--radius-2xl);
+  border: 1.5px solid var(--color-gray-100);
+  padding: var(--space-7);
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebarTitle {
+  font-family: var(--font-heading);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-5);
+}
+
+.sidebarList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.sidebarList li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: 0.9rem;
+  color: var(--color-gray-600);
+  line-height: 1.4;
+}
+
+.sidebarList li svg {
+  color: var(--color-success);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.emergencyCard {
+  background: var(--color-primary);
+  border-color: transparent;
+}
+
+.emergencyTitle {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-white);
+  margin-bottom: var(--space-3);
+}
+
+.emergencyCard p {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin-bottom: var(--space-5);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .bookingLayout {
+    grid-template-columns: 1fr;
+  }
+  .bookingSidebar {
+    position: static;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+  .formCard {
+    padding: var(--space-6);
+  }
+  .stepNavBtns {
+    flex-direction: column;
+  }
+  .bookingSidebar {
+    grid-template-columns: 1fr;
+  }
+}

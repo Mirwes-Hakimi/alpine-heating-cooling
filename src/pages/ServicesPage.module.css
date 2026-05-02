@@ -1,0 +1,250 @@
+/* ===== PAGE HEADER ===== */
+.pageHeader {
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+  padding: var(--space-24) 0 var(--space-20);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.pageHeaderBlob {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(232, 93, 38, 0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.pageTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  color: var(--color-white);
+  line-height: 1.1;
+  margin: var(--space-3) 0 var(--space-5);
+}
+
+.pageSubtitle {
+  font-size: 1.0625rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 600px;
+  margin: 0 auto var(--space-8);
+  line-height: 1.7;
+}
+
+.pageActions {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ===== SERVICES STACK ===== */
+.servicesStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.serviceBlock {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.serviceBlock.reverse {
+  direction: rtl;
+}
+
+.serviceBlock.reverse > * {
+  direction: ltr;
+}
+
+/* ─── Visual panel ─── */
+.serviceVisual {
+  border-radius: var(--radius-2xl);
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  position: relative;
+  overflow: hidden;
+}
+
+.accent_cool  { background: linear-gradient(135deg, #e3f2fd, #bbdefb); }
+.accent_warm  { background: linear-gradient(135deg, #fff3e0, #ffe0b2); }
+.accent_success { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); }
+.accent_danger { background: linear-gradient(135deg, #fce4ec, #f8bbd0); }
+.accent_primary { background: linear-gradient(135deg, #e8eaf6, #c5cae9); }
+
+.serviceIconWrap {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+}
+
+.accent_cool .serviceIconWrap { color: var(--color-cool); }
+.accent_warm .serviceIconWrap { color: var(--color-warm); }
+.accent_success .serviceIconWrap { color: var(--color-success); }
+.accent_danger .serviceIconWrap { color: #e91e63; }
+.accent_primary .serviceIconWrap { color: var(--color-primary); }
+
+.serviceAccentText {
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+/* ─── Content ─── */
+.serviceContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.serviceTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  line-height: 1.15;
+}
+
+.serviceSubtitle {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  line-height: 1.5;
+}
+
+.serviceDesc {
+  font-size: 0.9875rem;
+  color: var(--color-gray-600);
+  line-height: 1.75;
+}
+
+.featureList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2) var(--space-5);
+}
+
+.featureList li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.9rem;
+  color: var(--color-gray-700);
+}
+
+.featureList li svg {
+  color: var(--color-success);
+  flex-shrink: 0;
+}
+
+.serviceCtas {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+}
+
+/* ===== BRANDS ===== */
+.brandsSection {
+  background: var(--color-gray-50);
+}
+
+.brandsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  justify-content: center;
+}
+
+.brandChip {
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-white);
+  border: 1.5px solid var(--color-gray-200);
+  border-radius: var(--radius-full);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-gray-600);
+  transition: all var(--transition-fast);
+}
+
+.brandChip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ===== BOTTOM CTA ===== */
+.servicesCta {
+  background: var(--color-primary);
+  padding: var(--space-20) 0;
+}
+
+.ctaBox {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.ctaTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.ctaDesc {
+  font-size: 1.0625rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 500px;
+  line-height: 1.7;
+}
+
+.ctaBtns {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .serviceBlock {
+    grid-template-columns: 1fr;
+  }
+  .serviceBlock.reverse {
+    direction: ltr;
+  }
+  .serviceVisual {
+    min-height: 200px;
+  }
+  .featureList {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .serviceCtas {
+    flex-direction: column;
+  }
+  .pageActions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
