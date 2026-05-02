@@ -1224,7 +1224,7 @@
   .heroBadge { justify-content: center; }
   .heroVisual { display: none; }              /* hide the right-column (logo + desktop stats) */
   .heroMobileStats { display: block; }        /* show the mobile-only stats instead */
-  .heroLiveBadge { top: calc(var(--nav-height) + 10px); right: 12px; }
+  .heroLiveBadge { display: none; } /* remove badge on mobile — it pushes content down */
   .heroMobileImg { display: block; } /* show the photo strip on tablet/mobile */
   .whyLayout { grid-template-columns: 1fr; }
   .whyLeft { align-items: center; text-align: center; }

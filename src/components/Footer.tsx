@@ -137,6 +137,18 @@ export default function Footer() {
               </span>
             </div>
           </div>
+          {/* Website credit */}
+          <p className={styles.builtBy}>
+            Website by{' '}
+            <a
+              href="https://www.kblwebsolutions.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.builtByLink}
+            >
+              KBL Web Solutions
+            </a>
+          </p>
         </div>
       </div>
     </footer>
