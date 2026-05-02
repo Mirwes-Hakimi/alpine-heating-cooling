@@ -4,9 +4,18 @@ import styles from './Footer.module.css'
 const LOGO = '/AlpineLogo.jpg'
 
 const serviceAreas = [
-  'San Jose', 'Oakland', 'Fremont', 'Palo Alto',
-  'Sunnyvale', 'Santa Clara', 'Mountain View', 'San Francisco',
-  'Berkeley', 'Hayward', 'Milpitas', 'Santa Cruz',
+  // Peninsula & South Bay
+  'San Jose', 'Palo Alto', 'Sunnyvale', 'Santa Clara',
+  'Mountain View', 'Milpitas', 'Fremont',
+  // Oakland / Inner East Bay
+  'Oakland', 'Berkeley', 'Hayward', 'San Leandro',
+  // East Bay corridor — Brentwood to Martinez
+  'Pittsburg', 'Antioch', 'Brentwood', 'Concord',
+  'Martinez', 'Walnut Creek', 'Pleasant Hill',
+  // Tri-Valley
+  'Livermore', 'Pleasanton', 'Dublin', 'San Ramon', 'Danville',
+  // SF & Peninsula
+  'San Francisco', 'Santa Cruz',
 ]
 
 export default function Footer() {
@@ -76,7 +85,7 @@ export default function Footer() {
               <ul className={styles.contactList}>
                 <li>
                   <PinIcon />
-                  <span>1847 Alpine Way<br />San Jose, CA 95101</span>
+                  <span>485 Railroad Ave<br />Pittsburg, CA 94565</span>
                 </li>
                 <li>
                   <PhoneIcon />

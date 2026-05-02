@@ -125,8 +125,8 @@ export default function ContactPage() {
                   <div className={styles.infoIcon}><PinIcon /></div>
                   <div>
                     <h3 className={styles.infoLabel}>Office Address</h3>
-                    <p className={styles.infoValue}>1847 Alpine Way</p>
-                    <p className={styles.infoNote}>San Jose, CA 95101</p>
+                    <p className={styles.infoValue}>485 Railroad Ave</p>
+                    <p className={styles.infoNote}>Pittsburg, CA 94565</p>
                   </div>
                 </div>
               </div>
@@ -135,7 +135,11 @@ export default function ContactPage() {
               <div className={styles.areasBox}>
                 <h3 className={styles.areasTitle}>Service Areas</h3>
                 <div className={styles.areasList}>
-                  {['San Jose', 'Oakland', 'Fremont', 'Palo Alto', 'Sunnyvale', 'Santa Clara', 'Mountain View', 'San Francisco'].map((c) => (
+                  {[
+                    'Pittsburg', 'Antioch', 'Brentwood', 'Concord', 'Martinez',
+                    'Walnut Creek', 'Livermore', 'Pleasanton', 'Dublin', 'Danville',
+                    'Oakland', 'Fremont', 'Hayward', 'San Jose', 'San Francisco',
+                  ].map((c) => (
                     <span key={c} className={styles.areaChip}>{c}</span>
                   ))}
                 </div>

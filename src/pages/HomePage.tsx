@@ -220,6 +220,23 @@ function HeroSection() {
             </a>
           </div>
 
+          {/* Mobile-only HVAC photo strip — shown below CTAs on mobile.
+              Desktop shows the photo in heroVisual (the right column).
+              Same Ken Burns zoom + logo badge, just sized for a phone screen. */}
+          <div className={styles.heroMobileImg} aria-hidden="true">
+            <img
+              src="/kettenreaktion-l_Vn4HlFQVw-unsplash.jpg"
+              alt=""
+              className={styles.heroMobilePhoto}
+            />
+            <div className={styles.heroMobileOverlay} />
+            <img
+              src="/AlpineLogo.jpg"
+              alt="Alpine Heating and Cooling"
+              className={styles.heroMobileBadge}
+            />
+          </div>
+
           <div className={styles.heroTrust}>
             <TrustPill icon={<CheckIcon />} text="Licensed &amp; Insured" />
             <TrustPill icon={<CheckIcon />} text="Free Estimates" />
