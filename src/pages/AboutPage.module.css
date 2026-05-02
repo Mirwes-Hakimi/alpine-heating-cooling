@@ -32,14 +32,48 @@
   line-height: 1.7;
 }
 
-.headerVisual img {
-  width: 260px;
-  height: 150px;
-  object-fit: cover;
-  object-position: center 25%;
+/* Wrapper div for the header photo — gives us the box to clip + animate */
+.headerPhotoFrame {
+  position: relative;
+  width: 280px;
+  height: 195px;
   border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-xl);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden; /* clips photo AND the glow pseudo-element */
+  /* Glowing border: box-shadow creates the outer glow, second shadow creates the border ring */
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.45),
+    0 0 0 2px rgba(255, 255, 255, 0.1);
+  /* Slides in from the right with a spring overshoot */
+  animation: headerPhotoReveal 0.85s cubic-bezier(0.34, 1.4, 0.64, 1) 0.3s both;
+}
+
+/* Keyframe: photo card starts small + offset right, spring-bounces into place */
+@keyframes headerPhotoReveal {
+  from { opacity: 0; transform: scale(0.82) translateX(40px); }
+  to   { opacity: 1; transform: scale(1)    translateX(0);    }
+}
+
+/* The real photo inside the frame */
+.headerPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%; /* pan to show the most interesting part of the aerial shot */
+  /* Ken Burns zoom — same technique as the hero, slightly slower */
+  animation: kenBurnsAbout 18s ease-in-out infinite;
+}
+
+@keyframes kenBurnsAbout {
+  0%, 100% { transform: scale(1)    translate(0,    0);   }
+  50%       { transform: scale(1.07) translate(-1%,  1%); }
+}
+
+/* Gradient overlay: transparent at top, dark at bottom */
+.headerPhotoGlow {
+  position: absolute; /* stacks on top of the photo */
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(6, 15, 31, 0.55) 100%);
+  pointer-events: none;
 }
 
 /* ===== STORY ===== */
@@ -92,6 +126,32 @@
   color: var(--color-gray-400);
   text-transform: uppercase;
   letter-spacing: 0.04em;
+}
+
+/* Photo strip below the 4 stats, spans the full 2-column stats grid */
+.storyPhoto {
+  grid-column: 1 / -1; /* span from first to last grid column = full width of stats area */
+  border-radius: var(--radius-2xl);
+  overflow: hidden;    /* clips image and its zoom to rounded corners */
+  height: 180px;
+  margin-top: var(--space-2);
+  box-shadow: var(--shadow-md);
+  /* Subtle border that shows on white background */
+  outline: 1.5px solid var(--color-gray-100);
+}
+
+/* Photo zooms in slightly on hover — satisfying subtle interaction */
+.storyPhoto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%; /* crop to the interesting middle of the urban HVAC scene */
+  transition: transform 0.7s ease;
+  transform: scale(1.02); /* pre-zoomed so hover zoom has room to grow */
+}
+
+.storyPhoto:hover img {
+  transform: scale(1.08);
 }
 
 .storyContent {

@@ -2,8 +2,6 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './AboutPage.module.css'
 
-const LOGO = '/AlpineLogo.jpg'
-
 const values = [
   {
     icon: <HandshakeIcon />,
@@ -71,7 +69,16 @@ export default function AboutPage() {
               </Link>
             </div>
             <div className={styles.headerVisual} aria-hidden="true">
-              <img src={LOGO} alt="" className={styles.headerLogo} />
+              {/* Real photo with animated reveal — slides in from the right on mount */}
+              <div className={styles.headerPhotoFrame}>
+                <img
+                  src="/sergei-a-hFBFC5YmIck-unsplash.jpg"
+                  alt=""
+                  className={styles.headerPhoto}
+                />
+                {/* Gradient overlay darkens the bottom of the photo */}
+                <div className={styles.headerPhotoGlow} />
+              </div>
             </div>
           </div>
         </div>
@@ -93,6 +100,13 @@ export default function AboutPage() {
                   <span>{s.label}</span>
                 </div>
               ))}
+              {/* Photo below the stats — spans the full 2-column width of the stats grid */}
+              <div className={styles.storyPhoto}>
+                <img
+                  src="/raymond-yeung--BWDRf_mG9Q-unsplash.jpg"
+                  alt="HVAC technician on site"
+                />
+              </div>
             </div>
             <div className={styles.storyContent}>
               <span className="section-label">Our Story</span>

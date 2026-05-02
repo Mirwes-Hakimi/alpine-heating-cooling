@@ -11,6 +11,8 @@ const services = [
     desc: 'Installation, repair, and tune-ups for all AC brands. Stay cool all Bay Area summer.',
     href: '/services#ac-services',
     accent: 'cool',
+    // Indoor Daikin unit in a modern space — shows a real installed AC system
+    image: '/jaimes-renz-tormis-kbkWI7pm3bE-unsplash.jpg',
   },
   {
     icon: <FlameIcon />,
@@ -18,6 +20,8 @@ const services = [
     desc: 'Expert furnace and heat pump installation and repair for Bay Area homes.',
     href: '/services#heating',
     accent: 'warm',
+    // Smart thermostat close-up — represents precision temperature control
+    image: '/arthur-lambillotte-YG19gb9jW0I-unsplash.jpg',
   },
   {
     icon: <WrenchIcon />,
@@ -25,6 +29,8 @@ const services = [
     desc: 'Fast diagnostics and reliable repairs for all makes and models. Most jobs same-day.',
     href: '/services#repair',
     accent: 'primary',
+    // Outdoor condenser units on a rooftop — the equipment our techs work on every day
+    image: '/max-smith-r_Laq32e3vg-unsplash.jpg',
   },
   {
     icon: <ShieldIcon />,
@@ -32,6 +38,8 @@ const services = [
     desc: 'Annual tune-ups that extend equipment life, improve efficiency, and prevent breakdowns.',
     href: '/services#maintenance',
     accent: 'success',
+    // Industrial ductwork — represents the ventilation systems we inspect and maintain
+    image: '/compagnons-yZmHFF-g-W0-unsplash.jpg',
   },
 ]
 
@@ -177,11 +185,22 @@ function HeroSection() {
           </div>
 
           <h1 className={styles.heroTitle}>
-            Reliable Heating &amp;
+            {/* Each word is wrapped in .wordReveal so it pops in independently.
+                animationDelay staggers them: badge → words 1-2 → "Cooling" → subtitle phrase.
+                display: inline-block (set in CSS) is required for transform to work on text spans. */}
+            <span className={styles.wordReveal} style={{ animationDelay: '0.2s' }}>Reliable</span>
+            {' '}
+            <span className={styles.wordReveal} style={{ animationDelay: '0.32s' }}>Heating &amp;</span>
             <br />
-            {/* heroGradient applies an animated color-shifting gradient to this word */}
-            <span className={styles.heroGradient}>Cooling</span>
-            <span className={styles.heroSubText}> in the Bay Area</span>
+            {/* Nested spans: outer handles the pop-in transform; inner handles the gradient color */}
+            <span className={styles.wordReveal} style={{ animationDelay: '0.44s' }}>
+              <span className={styles.heroGradient}>Cooling</span>
+            </span>
+            {' '}
+            {/* The subtitle phrase appears last and uses heroSubText for its white color */}
+            <span className={`${styles.wordReveal} ${styles.heroSubText}`} style={{ animationDelay: '0.56s' }}>
+              in the Bay Area
+            </span>
           </h1>
 
           <p className={styles.heroDesc}>
@@ -220,15 +239,24 @@ function HeroSection() {
           </div>
         </div>
 
-        {/* Right column: logo card + stat bubbles (desktop only) */}
+        {/* Right column: real photo card + stat bubbles (desktop only) */}
         <div className={styles.heroVisual} aria-hidden="true">
-          {/* Animated gradient border ring around the logo */}
+          {/* Gradient border ring — the 3px padding becomes a glowing animated border */}
           <div className={styles.logoGlowRing}>
             <div className={styles.logoCard}>
+              {/* Real HVAC photo fills the card with a slow Ken Burns zoom */}
+              <img
+                src="/kettenreaktion-l_Vn4HlFQVw-unsplash.jpg"
+                alt=""
+                className={styles.heroPhoto}
+              />
+              {/* Dark gradient overlay so the logo badge in the corner stays readable */}
+              <div className={styles.heroPhotoOverlay} aria-hidden="true" />
+              {/* Alpine logo badge pinned to the bottom-left of the photo */}
               <img
                 src="/AlpineLogo.jpg"
-                alt=""
-                className={styles.heroLogo}
+                alt="Alpine Heating and Cooling"
+                className={styles.heroPicBadge}
               />
             </div>
           </div>
@@ -329,6 +357,10 @@ function ServicesSection() {
               className={`${styles.serviceCard} ${styles[`accent_${s.accent}`]}`}
               style={getStyle(i)}
             >
+              {/* Photo strip — bleeds to card edges via negative margins, zooms on hover */}
+              <div className={styles.serviceCardImg}>
+                <img src={s.image} alt="" />
+              </div>
               <div className={styles.serviceIconWrap}>
                 <div className={styles.serviceIcon}>{s.icon}</div>
               </div>
