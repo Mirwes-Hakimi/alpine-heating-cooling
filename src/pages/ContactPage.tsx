@@ -267,7 +267,7 @@ export default function ContactPage() {
                 <div className={styles.mapWrapper}>
                   <iframe
                     title="Alpine Heating and Cooling service area map"
-                    src="https://maps.google.com/maps?q=Pittsburg,+California&t=&z=12&ie=UTF8&iwloc=&output=embed"
+                    src="https://maps.google.com/maps?q=San+Francisco+Bay+Area,+California&t=&z=9&ie=UTF8&iwloc=&output=embed"
                     width="100%"
                     height="340"
                     style={{ border: 0, borderRadius: '12px' }}
