@@ -1219,6 +1219,8 @@
   }
   /* Tighten the gap between all hero content children on mobile */
   .heroContent { align-items: center; gap: var(--space-3); }
+  /* Reduce the large top padding — desktop needs space-16 but mobile just needs space-6 */
+  .hero { padding-top: calc(var(--nav-height) + var(--space-6)); }
   .heroDesc { max-width: 600px; margin: 0 auto; }
   .heroTrust { justify-content: center; }
   .heroCtas { justify-content: center; }
@@ -1280,7 +1282,8 @@
 
 @media (max-width: 480px) {
   /* Trust grid: already a flex row (from 768px rule), no further changes needed */
-  .heroContent { gap: var(--space-2); } /* even tighter gap on small phones */
+  .heroContent { gap: var(--space-2); }
+  .hero { padding-top: calc(var(--nav-height) + var(--space-3)); }
   .heroCtas { flex-direction: column; align-items: stretch; } /* buttons stack vertically */
   .heroStats { grid-template-columns: repeat(2, 1fr); }       /* stats: 4-col → 2×2 grid */
   /* Hide scroll indicator on very small screens to avoid clutter */
