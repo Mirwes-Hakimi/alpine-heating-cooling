@@ -89,11 +89,11 @@ export default function Footer() {
                 </li>
                 <li>
                   <PhoneIcon />
-                  <a href="tel:+16505487823">(650) 548-7823</a>
+                  <a href="tel:+19252701355">(925) 270-1355</a>
                 </li>
                 <li>
                   <EmailIcon />
-                  <a href="mailto:info@alpinehvacbay.com">info@alpinehvacbay.com</a>
+                  <a href="mailto:Service@alpineheatingac.com">Service@alpineheatingac.com</a>
                 </li>
                 <li>
                   <ClockIcon />
@@ -129,7 +129,7 @@ export default function Footer() {
               </span>
               <span className={styles.badge}>
                 <StarIcon />
-                4.9 ★ Rating
+                5.0 ★ Rating
               </span>
               <span className={styles.badge}>
                 <BoltIcon />

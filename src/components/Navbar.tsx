@@ -76,13 +76,13 @@ export default function Navbar() {
         {/* ── Desktop actions ── */}
         <div className={styles.actions}>
           <a
-            href="tel:+16505487823"
+            href="tel:+19252701355"
             className={styles.phoneLink}
-            aria-label="Call us at (650) 548-7823"
+            aria-label="Call us at (925) 270-1355"
           >
             <span className={styles.phoneDot} aria-hidden="true" />
             <PhoneIcon />
-            <span>(650) 548-7823</span>
+            <span>(925) 270-1355</span>
           </a>
 
           <Link to="/booking" className={`${styles.bookBtn}`}>
@@ -142,9 +142,9 @@ export default function Navbar() {
             <div className={styles.mobileDivider} />
 
             <div className={styles.mobileActions}>
-              <a href="tel:+16505487823" className={styles.mobilePhone}>
+              <a href="tel:+19252701355" className={styles.mobilePhone}>
                 <PhoneIcon />
-                <span>(650) 548-7823</span>
+                <span>(925) 270-1355</span>
                 <span className={styles.mobileAvail}>Available 24/7</span>
               </a>
               <Link to="/booking" className={styles.mobileBook}>

@@ -1,5 +1,6 @@
 import { useState, useEffect, type FormEvent } from 'react'
 import styles from './BookingPage.module.css'
+import { submitToWeb3Forms } from '../lib/web3forms'
 
 type BookingForm = {
   firstName: string
@@ -61,6 +62,8 @@ export default function BookingPage() {
   const [errors, setErrors] = useState<Partial<BookingForm>>({})
   const [step, setStep] = useState<1 | 2 | 3>(1)
   const [submitting, setSubmitting] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
 
   useEffect(() => {
     document.title = 'Book Service – Alpine Heating and Cooling'
@@ -94,16 +97,25 @@ export default function BookingPage() {
     if (step === 2 && validateStep2()) setStep(3)
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setSubmitting(true)
-    setTimeout(() => {
-      const bookings = JSON.parse(localStorage.getItem('alpine_bookings') ?? '[]')
-      bookings.push({ ...form, bookedAt: new Date().toISOString(), id: Date.now() })
-      localStorage.setItem('alpine_bookings', JSON.stringify(bookings))
-      setStep(3)
-      setSubmitting(false)
-    }, 900)
+    setSubmitError(false)
+    const ok = await submitToWeb3Forms({
+      subject: `New booking request from ${form.firstName} ${form.lastName}`,
+      name: `${form.firstName} ${form.lastName}`,
+      phone: form.phone,
+      email: form.email,
+      address: `${form.address}, ${form.city}, CA`,
+      serviceType: form.serviceType,
+      preferredDate: form.preferredDate,
+      preferredTime: form.preferredTime,
+      paymentMethod: 'Pay After Service',
+      notes: form.notes,
+    })
+    setSubmitting(false)
+    if (ok) setSubmitted(true)
+    else setSubmitError(true)
   }
 
   function handleChange(field: keyof BookingForm, value: string) {
@@ -120,7 +132,7 @@ export default function BookingPage() {
           <h1 className={styles.pageTitle}>Book Your HVAC Service</h1>
           <p className={styles.pageSubtitle}>
             Fill out the form below and we&apos;ll confirm your appointment within one business hour.
-            Prefer to talk? Call us at <a href="tel:+16505487823">(650) 548-7823</a>.
+            Prefer to talk? Call us at <a href="tel:+19252701355">(925) 270-1355</a>.
           </p>
         </div>
       </section>
@@ -325,7 +337,13 @@ export default function BookingPage() {
               )}
 
               {/* Step 3 — Confirm / Success */}
-              {step === 3 && submitting === false && form.firstName !== '' ? (
+              {step === 3 && submitting ? (
+                <div className={styles.formCard} style={{ textAlign: 'center', padding: '3rem' }}>
+                  <p style={{ color: 'var(--color-gray-500)' }}>Booking your appointment…</p>
+                </div>
+              ) : step === 3 && submitted ? (
+                <BookingSuccess name={form.firstName} date={form.preferredDate} time={form.preferredTime} />
+              ) : step === 3 ? (
                 <div className={styles.formCard}>
                   <h2 className={styles.stepTitle}>Review &amp; Confirm</h2>
                   <div className={styles.summary}>
@@ -340,6 +358,12 @@ export default function BookingPage() {
                     {form.notes && <SummaryRow label="Notes" value={form.notes} />}
                   </div>
                   <form onSubmit={handleSubmit}>
+                    {submitError && (
+                      <p style={{ color: 'var(--color-danger)', fontSize: '0.875rem', fontWeight: 500, marginBottom: '1rem' }} role="alert">
+                        Something went wrong submitting your booking. Please try again, or call us at{' '}
+                        <a href="tel:+19252701355">(925) 270-1355</a>.
+                      </p>
+                    )}
                     <div className={styles.stepNavBtns}>
                       <button type="button" className="btn btn-outline" onClick={() => setStep(2)}>
                         ← Edit
@@ -349,12 +373,6 @@ export default function BookingPage() {
                       </button>
                     </div>
                   </form>
-                </div>
-              ) : step === 3 && !submitting ? (
-                <BookingSuccess name={form.firstName} date={form.preferredDate} time={form.preferredTime} />
-              ) : step === 3 && submitting ? (
-                <div className={styles.formCard} style={{ textAlign: 'center', padding: '3rem' }}>
-                  <p style={{ color: 'var(--color-gray-500)' }}>Booking your appointment…</p>
                 </div>
               ) : null}
             </div>
@@ -369,7 +387,7 @@ export default function BookingPage() {
                     'Free estimates on all installations',
                     'NATE-certified technicians',
                     'Upfront pricing — no surprises',
-                    'Licensed & insured — CSLB #1045782',
+                    'Licensed & insured — CSLB #1157947',
                     '2-year labor warranty on all repairs',
                   ].map((item) => (
                     <li key={item}>
@@ -383,9 +401,9 @@ export default function BookingPage() {
               <div className={styles.sidebarCard + ' ' + styles.emergencyCard}>
                 <h3 className={styles.emergencyTitle}>Need Immediate Help?</h3>
                 <p>For emergencies, skip the form and call us directly. We dispatch 24/7.</p>
-                <a href="tel:+16505487823" className={`btn btn-primary`} style={{ width: '100%', justifyContent: 'center' }}>
+                <a href="tel:+19252701355" className={`btn btn-primary`} style={{ width: '100%', justifyContent: 'center' }}>
                   <PhoneIcon />
-                  (650) 548-7823
+                  (925) 270-1355
                 </a>
               </div>
             </aside>
@@ -450,7 +468,7 @@ function BookingSuccess({ name, date, time }: { name: string; date: string; time
         An Alpine team member will call you within 1 business hour to confirm.
       </p>
       <p style={{ fontSize: '0.9rem', color: 'var(--color-gray-400)' }}>
-        Questions? Call us at <a href="tel:+16505487823" style={{ color: 'var(--color-warm)', fontWeight: 600 }}>(650) 548-7823</a>
+        Questions? Call us at <a href="tel:+19252701355" style={{ color: 'var(--color-warm)', fontWeight: 600 }}>(925) 270-1355</a>
       </p>
     </div>
   )

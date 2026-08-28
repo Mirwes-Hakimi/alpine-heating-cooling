@@ -93,7 +93,7 @@ export default function AboutPage() {
                 { value: '2009', label: 'Founded' },
                 { value: '5,000+', label: 'Customers Served' },
                 { value: '12,000+', label: 'Jobs Completed' },
-                { value: '4.9★', label: 'Average Rating' },
+                { value: '5.0★', label: 'Average Rating' },
               ].map((s) => (
                 <div key={s.label} className={styles.storyStat}>
                   <strong>{s.value}</strong>
@@ -188,7 +188,7 @@ export default function AboutPage() {
           </div>
           <div className={styles.certsGrid}>
             {[
-              { title: 'CA CSLB License', value: '#1045782', desc: 'California Contractors State License Board — C-20 HVAC Contractor' },
+              { title: 'CA CSLB License', value: '#1157947', desc: 'California Contractors State License Board — C-20 HVAC Contractor' },
               { title: 'NATE Certified', value: 'All Technicians', desc: 'North American Technician Excellence certification for every Alpine tech' },
               { title: 'EPA 608', value: 'Universal Certified', desc: 'Certified for all refrigerant types including R-410A and R-32 systems' },
               { title: 'General Liability', value: '$2M Coverage', desc: 'Full liability and workers\' compensation insurance for your peace of mind' },

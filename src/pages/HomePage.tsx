@@ -44,10 +44,10 @@ const services = [
 ]
 
 const trustBadges = [
-  { icon: <CertIcon />, label: 'CA Licensed', value: 'CSLB #1045782' },
+  { icon: <CertIcon />, label: 'CA Licensed', value: 'CSLB #1157947' },
   { icon: <ShieldIcon />, label: 'Fully Insured', value: '$2M Liability' },
   { icon: <CalendarIcon />, label: 'In Business', value: '15+ Years' },
-  { icon: <StarIcon />, label: 'Customer Rating', value: '4.9 / 5.0' },
+  { icon: <StarIcon />, label: 'Customer Rating', value: '5.0 / 5.0' },
   { icon: <BoltIcon />, label: 'Emergency', value: '24 / 7' },
   { icon: <CheckIcon />, label: 'Free Estimates', value: 'Always' },
 ]
@@ -214,9 +214,9 @@ function HeroSection() {
               <CalendarIcon />
               Book Service
             </Link>
-            <a href="tel:+16505487823" className="btn btn-secondary btn-lg">
+            <a href="tel:+19252701355" className="btn btn-secondary btn-lg">
               <PhoneIcon />
-              (650) 548-7823
+              (925) 270-1355
             </a>
           </div>
 
@@ -277,7 +277,7 @@ function HeroSection() {
               />
             </div>
           </div>
-          {/* Count-up stat bubbles: 15+, 5000+, 4.9/5★, 2hr */}
+          {/* Count-up stat bubbles: 15+, 5000+, 5.0/5★, 2hr */}
           <HeroStats />
         </div>
       </div>
@@ -307,7 +307,7 @@ function HeroStats() {
   const stats = [
     { end: 15,   suffix: '+',   label: 'Years Exp.'  },
     { end: 5000, suffix: '+',   label: 'Customers'   },
-    { end: 49,   suffix: '/5★', label: 'Rating'      }, // displayed as "4.9/5★" — special-cased below
+    { end: 50,   suffix: '/5★', label: 'Rating'      }, // displayed as "5.0/5★" — special-cased below
     { end: 2,    suffix: 'hr',  label: 'Response'    },
   ]
   return (
@@ -332,9 +332,9 @@ function CountUpStat({ end, suffix, label }: { end: number; suffix: string; labe
       ref={ref as React.RefObject<HTMLDivElement>} // ref tells useCountUp which element to observe
     >
       <strong>
-        {/* Special case for rating: we store 49 as the target but display it as "4.9"
-            because count-up counts integers — 4.9 isn't a whole number */}
-        {end === 49 ? `4.9` : count}
+        {/* Special case for rating: we store 50 as the target but display it as "5.0"
+            because count-up counts integers — we want one decimal place shown */}
+        {end === 50 ? `5.0` : count}
         {suffix}
       </strong>
       <span>{label}</span>
@@ -610,9 +610,9 @@ function EmergencyCTA() {
             </p>
           </div>
           <div className={styles.emergencyCtas}>
-            <a href="tel:+16505487823" className="btn btn-primary btn-lg">
+            <a href="tel:+19252701355" className="btn btn-primary btn-lg">
               <PhoneIcon />
-              Call Now: (650) 548-7823
+              Call Now: (925) 270-1355
             </a>
             <Link to="/booking" className="btn btn-secondary btn-lg">
               Schedule Online

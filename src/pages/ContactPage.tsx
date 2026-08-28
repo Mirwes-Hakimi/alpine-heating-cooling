@@ -1,5 +1,6 @@
 import { useState, useEffect, type FormEvent } from 'react'
 import styles from './ContactPage.module.css'
+import { submitToWeb3Forms } from '../lib/web3forms'
 
 type ContactForm = {
   name: string
@@ -28,6 +29,7 @@ export default function ContactPage() {
   const [errors, setErrors] = useState<Partial<ContactForm>>({})
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
 
   useEffect(() => {
     document.title = 'Contact Us – Alpine Heating and Cooling'
@@ -51,18 +53,26 @@ export default function ContactPage() {
     return Object.keys(e).length === 0
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     if (!validate()) return
     setSubmitting(true)
-    setTimeout(() => {
-      const submissions = JSON.parse(localStorage.getItem('alpine_contacts') ?? '[]')
-      submissions.push({ ...form, submittedAt: new Date().toISOString() })
-      localStorage.setItem('alpine_contacts', JSON.stringify(submissions))
+    setSubmitError(false)
+    const ok = await submitToWeb3Forms({
+      subject: `New contact form message from ${form.name}`,
+      name: form.name,
+      phone: form.phone,
+      email: form.email,
+      service: form.service,
+      message: form.message,
+    })
+    setSubmitting(false)
+    if (ok) {
       setSubmitted(true)
-      setSubmitting(false)
       setForm(initialForm)
-    }, 800)
+    } else {
+      setSubmitError(true)
+    }
   }
 
   function handleChange(field: keyof ContactForm, value: string) {
@@ -96,7 +106,7 @@ export default function ContactPage() {
                   <div className={styles.infoIcon}><PhoneIcon /></div>
                   <div>
                     <h3 className={styles.infoLabel}>Phone</h3>
-                    <a href="tel:+16505487823" className={styles.infoValue}>(650) 548-7823</a>
+                    <a href="tel:+19252701355" className={styles.infoValue}>(925) 270-1355</a>
                     <p className={styles.infoNote}>Mon–Fri 8am–6pm · Sat 9am–4pm</p>
                   </div>
                 </div>
@@ -105,7 +115,7 @@ export default function ContactPage() {
                   <div className={styles.infoIcon}><BoltIcon /></div>
                   <div>
                     <h3 className={styles.infoLabel}>Emergency Line</h3>
-                    <a href="tel:+16505487823" className={`${styles.infoValue} ${styles.emergency}`}>(650) 548-7823</a>
+                    <a href="tel:+19252701355" className={`${styles.infoValue} ${styles.emergency}`}>(925) 270-1355</a>
                     <p className={styles.infoNote}>Available 24 hours, 7 days a week</p>
                   </div>
                 </div>
@@ -114,8 +124,8 @@ export default function ContactPage() {
                   <div className={styles.infoIcon}><EmailIcon /></div>
                   <div>
                     <h3 className={styles.infoLabel}>Email</h3>
-                    <a href="mailto:info@alpinehvacbay.com" className={styles.infoValue}>
-                      info@alpinehvacbay.com
+                    <a href="mailto:Service@alpineheatingac.com" className={styles.infoValue}>
+                      Service@alpineheatingac.com
                     </a>
                     <p className={styles.infoNote}>We respond within 1 business hour</p>
                   </div>
@@ -158,7 +168,7 @@ export default function ContactPage() {
                     <h3>Message Sent!</h3>
                     <p>
                       Thank you! We&apos;ve received your message and will contact you within one
-                      business hour. For urgent matters, please call (650) 548-7823.
+                      business hour. For urgent matters, please call (925) 270-1355.
                     </p>
                     <button
                       className="btn btn-outline"
@@ -248,6 +258,13 @@ export default function ContactPage() {
                       />
                       {errors.message && <span id="c-msg-error" className={styles.error} role="alert">{errors.message}</span>}
                     </div>
+
+                    {submitError && (
+                      <p className={styles.error} role="alert">
+                        Something went wrong sending your message. Please try again, or call us at{' '}
+                        <a href="tel:+19252701355">(925) 270-1355</a>.
+                      </p>
+                    )}
 
                     <button
                       type="submit"

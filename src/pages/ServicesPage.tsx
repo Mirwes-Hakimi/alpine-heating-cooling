@@ -118,9 +118,9 @@ export default function ServicesPage() {
             Licensed, insured, and backed by 15+ years of Bay Area HVAC experience.
           </p>
           <div className={styles.pageActions}>
-            <a href="tel:+16505487823" className="btn btn-primary btn-lg">
+            <a href="tel:+19252701355" className="btn btn-primary btn-lg">
               <PhoneIcon />
-              Call (650) 548-7823
+              Call (925) 270-1355
             </a>
             <Link to="/booking" className="btn btn-secondary btn-lg">
               Book Online
@@ -165,9 +165,9 @@ export default function ServicesPage() {
                       {service.cta}
                     </Link>
                     {service.id === 'emergency' ? (
-                      <a href="tel:+16505487823" className="btn btn-outline">
+                      <a href="tel:+19252701355" className="btn btn-outline">
                         <PhoneIcon />
-                        (650) 548-7823
+                        (925) 270-1355
                       </a>
                     ) : (
                       <Link to="/contact" className="btn btn-outline">
@@ -209,8 +209,8 @@ export default function ServicesPage() {
             </p>
             <div className={styles.ctaBtns}>
               <Link to="/booking" className="btn btn-primary btn-lg">Book Online Now</Link>
-              <a href="tel:+16505487823" className="btn btn-secondary btn-lg">
-                <PhoneIcon /> (650) 548-7823
+              <a href="tel:+19252701355" className="btn btn-secondary btn-lg">
+                <PhoneIcon /> (925) 270-1355
               </a>
             </div>
           </div>
